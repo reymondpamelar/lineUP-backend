@@ -3,7 +3,6 @@ let bodyParser = require('body-parser');
 const emailSender = require("./api/emailSender")
 
 let port = process.env.PORT || 8080;
-require('dotenv').config();
 const cors = require('cors')
 const corsOptions = {
     origin: 'http://localhost:3000',

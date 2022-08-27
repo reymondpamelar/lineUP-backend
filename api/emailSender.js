@@ -1,6 +1,7 @@
 let express = require('express');
 const nodemailer = require("nodemailer");
 const router = express.Router();
+require('dotenv').config();
 const cors = require('cors')
 const corsOptions = {
     origin: 'http://localhost:3000',
