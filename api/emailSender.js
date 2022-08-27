@@ -41,7 +41,6 @@ router.post('/', configuredCors, function (req, res){
         subject: 'Line UP! Barber Confirmation',
         text: `You have an appointment with ${req.body.contactDetails.firstName}`
     }
-    res.status(200).send("User Page");
     transport.sendMail(message2, (err, info) => {
         if (err) {
             console.log(err)
@@ -49,5 +48,6 @@ router.post('/', configuredCors, function (req, res){
             console.log(info);
         }
     });
+    res.status(200).send("User Page");
 })
 module.exports = router;

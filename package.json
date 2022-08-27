@@ -16,6 +16,10 @@
   "builds": [
     { "src": "index.js", "use": "@vercel/node" }
   ],
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "routes": [
     { "src": "/(.*)", "dest": "/" }
   ]
