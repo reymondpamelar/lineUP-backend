@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "nodemailer": "^6.7.8"
+  },
+  "name": "lineUP-backend",
+  "version": "1.0.0",
+  "description": "Backend for LineUP",
+  "main": "index.js",
+  "repository": "https://github.com/reymondpamelar/lineUP-backend.git",
+  "author": "reymondpamelar <reymondpamelar@gmail.com>",
+  "license": "MIT"
+}
