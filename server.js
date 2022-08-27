@@ -3,6 +3,7 @@ let app = express();
 let bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 let port = process.env.PORT || 8080;
+require('dotenv').config();
 
 const cors = require('cors')
 const corsOptions = {
@@ -22,10 +23,12 @@ let transport = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-        user: "reymondpamelar@gmail.com",
-        pass: "ixpcguejozmsfrwp"
+        user: process.env.USER,
+        pass: process.env.PASS
     }
 });
+
+console.log(process.env.USER)
 
 app.post('/api/send_confirmation_mail', configuredCors, function (req, res){
     console.log('sending email...')
