@@ -1,48 +1,19 @@
 let express = require('express');
-let app = express();
 let bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
+const emailSender = require("./api/emailSender")
+
 let port = process.env.PORT || 8080;
 require('dotenv').config();
-
 const cors = require('cors')
 const corsOptions = {
     origin: 'http://localhost:3000',
 }
 const configuredCors = cors(corsOptions);
+let app = express();
 app.options('*', configuredCors)
-
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.use("/api/emailSender", emailSender)
 app.listen(port);
 console.log("App listening on port : " + port);
-
-let transport = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-    auth: {
-        user: process.env.USER,
-        pass: process.env.PASS
-    }
-});
-
-app.post('/api/send_confirmation_mail', configuredCors, function (req, res){
-    console.log('sending email...')
-    console.log(req.body)
-    const message = {
-        from: 'lineUP@gmail.com',
-        to: req.body.contactDetails.emailAddress,
-        subject: 'Line UP! Appointment Confirmation',
-        text: `You have an appointment with ${req.body.barber}`
-    }
-    res.status(200).send("User Page");
-    transport.sendMail(message, (err, info) => {
-        if (err) {
-            console.log(err)
-        } else {
-            console.log(info);
-        }
-    });
-})
