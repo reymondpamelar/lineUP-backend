@@ -1,36 +1,48 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const nodemailer = require("nodemailer");
+let express = require('express');
+let app = express();
+let bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+let port = process.env.PORT || 8080;
+require('dotenv').config();
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+const cors = require('cors')
+const corsOptions = {
+    origin: 'http://localhost:3000',
+}
+const configuredCors = cors(corsOptions);
+app.options('*', configuredCors)
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
+app.use(bodyParser.urlencoded({'extended':'true'}));
+app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
+app.listen(port);
+console.log("App listening on port : " + port);
 
 let transport = nodemailer.createTransport({
-    host: "smtp.mailtrap.io",
-    port: 2525,
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
-        user: "475206aca209b5",
-        pass: "0dab5ff18a0025"
+        user: process.env.USER,
+        pass: process.env.PASS
     }
 });
 
-const message = {
-    from: "your_email_account@domain.com",
-    to: "recipient_email_account@domain.com",
-    subject: "Hello!",
-    text: "This is a test of Mailtrap and Nodemailer. "
-}
-
-transport.sendMail(message, (err, info) => {
-    if (err) {
-        console.log(err)
-    } else {
-        console.log(info);
+app.post('/api/send_confirmation_mail', configuredCors, function (req, res){
+    console.log('sending email...')
+    console.log(req.body)
+    const message = {
+        from: 'lineUP@gmail.com',
+        to: req.body.contactDetails.emailAddress,
+        subject: 'Line UP! Appointment Confirmation',
+        text: `You have an appointment with ${req.body.barber}`
     }
-});
+    res.status(200).send("User Page");
+    transport.sendMail(message, (err, info) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(info);
+        }
+    });
+})
