@@ -67,9 +67,9 @@ router.post('/', configuredCors, function (req, res){
             preset: styleSettings.preset,
             fadeType: styleSettings.fadeType,
             trimStyle: styleSettings.trimSet.trimStyle,
-            trimType1: styleSettings.trimSet.trimType[0] || '',
-            trimType2: styleSettings.trimSet.trimType[1] || '',
-            trimType3: styleSettings.trimSet.trimType[2] || '',
+            trimType1: styleSettings.trimSet.trimTypes[0] || '',
+            trimType2: styleSettings.trimSet.trimTypes[1] || '',
+            trimType3: styleSettings.trimSet.trimTypes[2] || '',
         },
     }
     transport.sendMail(message2, (err, info) => {
