@@ -63,13 +63,13 @@ router.post('/', configuredCors, function (req, res){
         context:{
             firstName: contactDetails.firstName,
             lastName: contactDetails.lastName,
-            hairType: contactDetails.hairType,
+            hairType: hairType,
             preset: styleSettings.preset,
             fadeType: styleSettings.fadeType,
-            trimStyle: styleSettings.trimStyle,
-            trimType1: styleSettings.trimType1 || '',
-            trimType2: styleSettings.trimType2 || '',
-            trimType3: styleSettings.trimType3 || '',
+            trimStyle: styleSettings.trimSet.trimStyle,
+            trimType1: styleSettings.trimSet.trimType[0] || '',
+            trimType2: styleSettings.trimSet.trimType[1] || '',
+            trimType3: styleSettings.trimSet.trimType[2] || '',
         },
     }
     transport.sendMail(message2, (err, info) => {
