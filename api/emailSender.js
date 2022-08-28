@@ -65,7 +65,7 @@ router.post('/', configuredCors, function (req, res){
         context:{
             firstName: contactDetails.firstName,
             lastName: contactDetails.lastName,
-            date: moment(date).format('dddd, MMMM DD h a'),
+            date: moment(date).format('dddd, MMMM DD : h a'),
             hairType,
             preset: styleSettings.preset,
             fadeType: styleSettings.fadeType,
