@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Welcome Email</title>
+    <style>
+        h2 {
+            color: #c4c4c4;
+        }
+
+        .stack {
+            padding-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h2>
+        Hello {{firstName}} {{lastName}}, this is your confirmation email for the hair appointment.
+    </h2>
+    <div>
+        Hair Type : {{hairType}}
+    </div>
+    <div class="stack">
+        Haircut specifics:
+    </div>
+    <span>{{preset}}</span>
+    <span> {{fadeType}} </span>
+    <span> {{trimStyle}}</span>
+    <span> {{trimType1}}</span>
+    <span> {{trimType2}}</span>
+    <span> {{trimType3}}</span>
+</body>
+</html>

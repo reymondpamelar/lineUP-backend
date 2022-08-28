@@ -3,6 +3,9 @@ const nodemailer = require("nodemailer");
 const router = express.Router();
 require('dotenv').config();
 const cors = require('cors')
+const path = require("path");
+const hbs = require('nodemailer-express-handlebars')
+
 const corsOptions = {
     origin: 'http://localhost:3000',
 }
@@ -17,6 +20,16 @@ let transport = nodemailer.createTransport({
         pass: process.env.PASS
     }
 });
+const handlebarOptions = {
+    viewEngine: {
+        partialsDir: path.resolve('./views/'),
+        defaultLayout: false,
+    },
+    viewPath: path.resolve('./views/'),
+};
+
+// use a template file with nodemailer
+transport.use('compile', hbs(handlebarOptions))
 
 router.post('/', configuredCors, function (req, res){
     console.log('sending email...')
@@ -25,27 +38,14 @@ router.post('/', configuredCors, function (req, res){
     let contactDetails = req.body.contactDetails
     let hairType = req.body.hairType
     let styleSettings = req.body.styleSettings
-    function userText() {
-        let styles = `<div>Hello ${contactDetails.firstName} ${contactDetails.lastName}, this is your confirmation email for the hair appointment.</div> <div>Hair Type : ${hairType}</div> <span>${styleSettings.preset}</span>`
-
-        function flatten (obj) {
-            for(let prop in obj){
-                if(typeof prop === 'object'){
-                    flatten(prop)
-                }else if(typeof prop === 'string'){
-                    styles += `<span> ${obj} </span>`
-                }
-            }
-        }
-        flatten(styleSettings)
-        return styles
-    }
     const message1 = {
         from: 'lineUP@gmail.com',
         to: req.body.contactDetails.emailAddress,
         subject: 'Line UP! Appointment Confirmation',
-        text: `You have an appointment with ${req.body.barber}`,
-        html: userText()
+        template: 'email',
+        context:{
+            firstName: contactDetails.firstName
+        },
     }
     transport.sendMail(message1, (err, info) => {
         if (err) {
@@ -59,8 +59,18 @@ router.post('/', configuredCors, function (req, res){
         from: 'lineUP@gmail.com',
         to: 'reymondpamelar@gmail.com',
         subject: 'Line UP! Barber Confirmation',
-        text: `You have an appointment with ${req.body.contactDetails.firstName}`,
-        html: userText()
+        template: 'email',
+        context:{
+            firstName: contactDetails.firstName,
+            lastName: contactDetails.lastName,
+            hairType: contactDetails.hairType,
+            preset: styleSettings.preset,
+            fadeType: styleSettings.fadeType,
+            trimStyle: styleSettings.trimStyle,
+            trimType1: styleSettings.trimType1 || '',
+            trimType2: styleSettings.trimType2 || '',
+            trimType3: styleSettings.trimType3 || '',
+        },
     }
     transport.sendMail(message2, (err, info) => {
         if (err) {
