@@ -5,9 +5,6 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Welcome Email</title>
     <style>
-        h2 {
-            color: #c4c4c4;
-        }
 
         .stack {
             padding-top: 1rem;
@@ -16,19 +13,22 @@
 </head>
 <body>
     <h2>
-        Hello {{firstName}} {{lastName}}, this is your confirmation email for the hair appointment.
+        Hello {{firstName}} {{lastName}}, this is the confirmation email for your hair appointment.
     </h2>
+    <h3>
+        You are scheduled for
+    </h3>
     <div>
         Hair type : {{hairType}}
     </div>
     <div class="stack">
         Haircut specifics:
     </div>
-    <span>{{preset}}</span>
-    <span> {{fadeType}} </span>
-    <span> {{trimStyle}}</span>
-    <span> {{trimType1}}</span>
-    <span> {{trimType2}}</span>
-    <span> {{trimType3}}</span>
+    <div>{{preset}},</div>
+    <div> {{fadeType}}</div>
+    <div> {{trimStyle}}</div>
+    <div> {{trimType1}}</div>
+    <div> {{trimType2}}</div>
+    <div> {{trimType3}}</div>
 </body>
 </html>

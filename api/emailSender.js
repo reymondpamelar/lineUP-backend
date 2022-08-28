@@ -5,6 +5,7 @@ require('dotenv').config();
 const cors = require('cors')
 const path = require("path");
 const hbs = require('nodemailer-express-handlebars')
+const moment = require("moment");
 
 const corsOptions = {
     origin: 'http://localhost:3000',
@@ -38,6 +39,7 @@ router.post('/', configuredCors, function (req, res){
     let contactDetails = req.body.contactDetails
     let hairType = req.body.hairType
     let styleSettings = req.body.styleSettings
+    let date = req.body.date
     const message1 = {
         from: 'lineUP@gmail.com',
         to: req.body.contactDetails.emailAddress,
@@ -63,13 +65,14 @@ router.post('/', configuredCors, function (req, res){
         context:{
             firstName: contactDetails.firstName,
             lastName: contactDetails.lastName,
-            hairType: hairType,
+            date: moment(date).format('dddd, MMMM DD h a'),
+            hairType,
             preset: styleSettings.preset,
             fadeType: styleSettings.fadeType,
-            trimStyle: styleSettings.trimSet.trimStyle,
-            trimType1: styleSettings.trimSet.trimTypes[0] || '',
-            trimType2: styleSettings.trimSet.trimTypes[1] || '',
-            trimType3: styleSettings.trimSet.trimTypes[2] || '',
+            trimStyle: styleSettings.trimSet?.trimStyle,
+            trimType1: styleSettings.trimSet?.trimTypes[0] || '',
+            trimType2: styleSettings.trimSet?.trimTypes[1] || '',
+            trimType3: styleSettings.trimSet?.trimTypes[2] || '',
         },
     }
     transport.sendMail(message2, (err, info) => {
