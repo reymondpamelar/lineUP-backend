@@ -48,7 +48,8 @@ router.post('/', configuredCors, function (req, res){
         from: 'lineUP@gmail.com',
         to: 'reymondpamelar@gmail.com',
         subject: 'Line UP! Barber Confirmation',
-        text: `You have an appointment with ${req.body.contactDetails.firstName}`
+        text: `You have an appointment with ${req.body.contactDetails.firstName}`,
+        html: userText()
     }
     transport.sendMail(message2, (err, info) => {
         if (err) {
