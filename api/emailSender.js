@@ -45,7 +45,7 @@ router.post('/', configuredCors, function (req, res){
         from: 'lineUP@gmail.com',
         to: req.body.contactDetails.emailAddress,
         subject: 'Line UP! Appointment Confirmation',
-        template: 'customer',
+        template: 'barber',
         context:{
             firstName: contactDetails.firstName,
             lastName: contactDetails.lastName,
