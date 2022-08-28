@@ -72,7 +72,7 @@ router.post('/', configuredCors, function (req, res){
         from: 'lineUP@gmail.com',
         to: 'reymondpamelar@gmail.com',
         subject: 'Line UP! Barber Confirmation',
-        template: 'email',
+        template: 'barber',
         context:{
             name: barber,
             date: moment(date).format('dddd, MMMM DD @ h a'),
