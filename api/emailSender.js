@@ -26,7 +26,18 @@ router.post('/', configuredCors, function (req, res){
     let hairType = req.body.hairType
     let styleSettings = req.body.styleSettings
     function userText() {
-        let styles = `<div>${contactDetails.firstName} ${contactDetails.lastName}</div> <div>${hairType}</div> <div>${styleSettings.preset}</div>`
+        let styles = `<div>Hello ${contactDetails.firstName} ${contactDetails.lastName}, this is your confirmation email for the hair appointment.</div> <div>Hair Type:${hairType}</div> <div>${styleSettings.preset}</div>`
+
+        function flatten (obj) {
+            for(let prop in obj){
+                if(typeof prop === 'object'){
+                    flatten(prop)
+                }else{
+                    styles += `<span>${obj}</span>`
+                }
+            }
+        }
+        flatten(styleSettings)
         return styles
     }
     const message1 = {

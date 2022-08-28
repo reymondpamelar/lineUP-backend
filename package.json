@@ -4,6 +4,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "moment": "^2.29.4",
     "nodemailer": "^6.7.8"
   },
   "name": "lineUP-backend",
@@ -14,13 +15,19 @@
   "author": "reymondpamelar <reymondpamelar@gmail.com>",
   "license": "MIT",
   "builds": [
-    { "src": "index.js", "use": "@vercel/node" }
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
   ],
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "routes": [
-    { "src": "/(.*)", "dest": "/" }
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
   ]
 }
