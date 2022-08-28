@@ -26,13 +26,13 @@ router.post('/', configuredCors, function (req, res){
     let hairType = req.body.hairType
     let styleSettings = req.body.styleSettings
     function userText() {
-        let styles = `<div>Hello ${contactDetails.firstName} ${contactDetails.lastName}, this is your confirmation email for the hair appointment.</div> <div>Hair Type:${hairType}</div> <div>${styleSettings.preset}</div>`
+        let styles = `<div>Hello ${contactDetails.firstName} ${contactDetails.lastName}, this is your confirmation email for the hair appointment.</div> <div>Hair Type : ${hairType}</div> <span>${styleSettings.preset}</span>`
 
         function flatten (obj) {
             for(let prop in obj){
                 if(typeof prop === 'object'){
                     flatten(prop)
-                }else{
+                }else if(typeof prop === 'string'){
                     styles += `<span>${obj}</span>`
                 }
             }
