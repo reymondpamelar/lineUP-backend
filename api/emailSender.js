@@ -33,7 +33,7 @@ router.post('/', configuredCors, function (req, res){
                 if(typeof prop === 'object'){
                     flatten(prop)
                 }else if(typeof prop === 'string'){
-                    styles += `<span>${obj}</span>`
+                    styles += `<span> ${obj} </span>`
                 }
             }
         }
