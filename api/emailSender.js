@@ -21,11 +21,20 @@ let transport = nodemailer.createTransport({
 router.post('/', configuredCors, function (req, res){
     console.log('sending email...')
     console.log(req.body)
+
+    let contactDetails = req.body.contactDetails
+    let hairType = req.body.hairType
+    let styleSettings = req.body.styleSettings
+    function userText() {
+        let styles = `<div>${contactDetails.firstName} ${contactDetails.lastName}</div> <div>${hairType}</div> <div>${styleSettings.preset}</div>`
+        return styles
+    }
     const message1 = {
         from: 'lineUP@gmail.com',
         to: req.body.contactDetails.emailAddress,
         subject: 'Line UP! Appointment Confirmation',
-        text: `You have an appointment with ${req.body.barber}`
+        text: `You have an appointment with ${req.body.barber}`,
+        html: userText()
     }
     transport.sendMail(message1, (err, info) => {
         if (err) {
