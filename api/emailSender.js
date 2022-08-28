@@ -39,14 +39,25 @@ router.post('/', configuredCors, function (req, res){
     let contactDetails = req.body.contactDetails
     let hairType = req.body.hairType
     let styleSettings = req.body.styleSettings
+    let barber = req.body.barber
     let date = req.body.date
     const message1 = {
         from: 'lineUP@gmail.com',
         to: req.body.contactDetails.emailAddress,
         subject: 'Line UP! Appointment Confirmation',
-        template: 'email',
+        template: 'customer',
         context:{
-            firstName: contactDetails.firstName
+            firstName: contactDetails.firstName,
+            lastName: contactDetails.lastName,
+            date: moment(date).format('dddd, MMMM DD @ h a'),
+            hairType,
+            barber,
+            preset: styleSettings.preset,
+            fadeType: styleSettings.fadeType,
+            trimStyle: styleSettings.trimSet?.trimStyle,
+            trimType1: styleSettings.trimSet?.trimTypes[0] || '',
+            trimType2: styleSettings.trimSet?.trimTypes[1] || '',
+            trimType3: styleSettings.trimSet?.trimTypes[2] || '',
         },
     }
     transport.sendMail(message1, (err, info) => {
@@ -63,8 +74,7 @@ router.post('/', configuredCors, function (req, res){
         subject: 'Line UP! Barber Confirmation',
         template: 'email',
         context:{
-            firstName: contactDetails.firstName,
-            lastName: contactDetails.lastName,
+            name: barber,
             date: moment(date).format('dddd, MMMM DD @ h a'),
             hairType,
             preset: styleSettings.preset,
