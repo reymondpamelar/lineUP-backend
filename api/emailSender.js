@@ -8,7 +8,7 @@ const hbs = require('nodemailer-express-handlebars')
 const moment = require("moment");
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://line-up-one.vercel.app/',
 }
 const configuredCors = cors(corsOptions);
 
